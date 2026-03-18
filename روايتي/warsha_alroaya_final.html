@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>ورشة الروائي 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;500;600;700&family=Scheherazade+New:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pk:#d4789a;--pk-l:#f0b8cc;--pk-p:#fdf0f5;--pk-d:#a85070;
+  --lv:#b8a8d4;--lv-l:#ddd4f0;--lv-p:#f4f0fc;--lv-d:#7060a8;
+  --cr:#fdf8fb;--cr-d:#f5e8ef;
+  --gd:#c9a060;--gd-l:#e8d0a0;--gd-p:#fdf8ee;
+  --ink:#2d1a28;--ink-m:#6a3a55;--ink-l:#a07090;
+  --wh:#fffcfe;--sh:rgba(180,100,130,.12);--sh-d:rgba(120,60,90,.22);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Cairo',sans-serif;background:radial-gradient(ellipse at top,#fce4ec 0%,#ede7f6 50%,#fdf0f5 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;}
+
+/* PHONE */
+.phone{width:390px;height:844px;background:var(--cr);border-radius:50px;overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:0 50px 100px rgba(150,80,110,.3),0 0 0 2px rgba(212,120,154,.4),inset 0 0 0 1px rgba(255,255,255,.95);}
+.status-bar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;position:absolute;top:0;left:0;right:0;z-index:300;}
+.st-t{font-size:15px;font-weight:600;color:var(--ink);}
+.st-i{font-size:12px;display:flex;gap:5px;}
+
+/* FLORAL CORNERS */
+.fc{position:absolute;width:70px;height:70px;pointer-events:none;z-index:250;opacity:.18;}
+.fc.tl{top:44px;right:0;}.fc.tr{top:44px;left:0;transform:scaleX(-1);}
+.fc.bl{bottom:84px;right:0;transform:scaleY(-1);}.fc.br{bottom:84px;left:0;transform:scale(-1,-1);}
+
+/* TOAST */
+.toast{position:absolute;top:56px;left:50%;transform:translateX(-50%) translateY(-14px);background:var(--ink);color:#fff;font-size:13px;font-family:'Cairo';padding:9px 22px;border-radius:24px;z-index:999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.2);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* APP AREA */
+.app-area{flex:1;margin-top:44px;margin-bottom:84px;overflow:hidden;position:relative;}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;background:var(--cr);scrollbar-width:none;}
+.screen::-webkit-scrollbar{display:none;}
+.screen.active{display:flex;animation:fadeUp .3s cubic-bezier(.4,0,.2,1);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* OVERLAYS */
+.overlay{position:absolute;inset:0;z-index:180;display:none;flex-direction:column;overflow-y:auto;scrollbar-width:none;animation:slideUp .35s cubic-bezier(.4,0,.2,1);}
+.overlay::-webkit-scrollbar{display:none;}
+.overlay.open{display:flex;}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+
+/* HEADER */
+.s-head{padding:16px 20px 12px;background:var(--cr);border-bottom:1px solid rgba(212,120,154,.14);position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;}
+.s-title{font-family:'Amiri',serif;font-size:24px;font-weight:700;color:var(--ink);}
+.s-sub{font-size:11px;color:var(--ink-l);margin-top:2px;}
+.s-btn{background:linear-gradient(135deg,var(--pk),var(--pk-d));color:#fff;font-size:12px;font-weight:700;padding:7px 15px;border-radius:22px;border:none;cursor:pointer;font-family:'Cairo';box-shadow:0 3px 12px rgba(168,80,112,.3);transition:all .2s;white-space:nowrap;}
+.s-btn:active{transform:scale(.96);}
+.s-btn.lv{background:linear-gradient(135deg,var(--lv),var(--lv-d));}
+
+/* DIVIDER */
+.gd{height:1px;background:linear-gradient(90deg,transparent,var(--pk-l),var(--lv-l),var(--pk-l),transparent);margin:4px 0;opacity:.6;}
+
+/* NAV */
+.bottom-nav{height:84px;position:absolute;bottom:0;left:0;right:0;background:rgba(253,248,251,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(212,120,154,.16);display:flex;z-index:100;padding-bottom:6px;}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all .25s;position:relative;}
+.nb .ni{font-size:22px;transition:transform .25s;}
+.nb .nl{font-size:9px;color:var(--ink-l);letter-spacing:.3px;font-weight:500;transition:color .25s;}
+.nb.active .nl{color:var(--pk-d);font-weight:700;}
+.nb.active .ni{transform:scale(1.15);}
+.nb::before{content:'';position:absolute;top:7px;width:5px;height:5px;border-radius:50%;background:var(--pk);opacity:0;transition:opacity .25s;}
+.nb.active::before{opacity:1;}
+
+/* ══ HOME ══ */
+.hero{background:linear-gradient(135deg,#fce4ec,#f3e5f5,#fdf0f5);padding:24px 22px 30px;position:relative;overflow:hidden;}
+.hero::after{content:'❋';position:absolute;bottom:-20px;left:16px;font-size:100px;color:var(--pk-l);opacity:.2;line-height:1;}
+.hero-title{font-size:11px;color:var(--ink-l);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px;}
+.hero-greet{font-family:'Scheherazade New',serif;font-size:32px;font-weight:700;color:var(--pk-d);line-height:1.2;}
+.hero-sub{font-size:12px;color:var(--ink-l);margin-top:5px;}
+
+/* STATS */
+.stats-row{display:flex;gap:10px;padding:14px 18px;overflow-x:auto;scrollbar-width:none;}
+.stat-pill{flex-shrink:0;background:var(--wh);border-radius:16px;padding:12px 16px;text-align:center;min-width:82px;box-shadow:0 2px 12px var(--sh);border:1px solid rgba(212,120,154,.12);}
+.stat-num{font-family:'Amiri',serif;font-size:22px;font-weight:700;color:var(--pk-d);line-height:1;}
+.stat-lbl{font-size:9px;color:var(--ink-l);margin-top:3px;text-transform:uppercase;letter-spacing:.6px;}
+.sec-h{font-family:'Amiri',serif;font-size:18px;font-weight:700;color:var(--ink);padding:14px 20px 8px;}
+
+/* BOOKS SHELF */
+.books-shelf{display:flex;gap:14px;padding:0 18px 16px;overflow-x:auto;scrollbar-width:none;}
+.bk{flex-shrink:0;width:112px;cursor:pointer;transition:transform .2s;}
+.bk:hover{transform:translateY(-4px);}
+.bk-cover{width:112px;height:154px;border-radius:6px 14px 14px 6px;position:relative;overflow:hidden;box-shadow:-4px 5px 18px rgba(0,0,0,.2),inset -5px 0 10px rgba(0,0,0,.1);margin-bottom:7px;}
+.bk-cover::before{content:'';position:absolute;right:0;top:0;bottom:0;width:13px;background:rgba(0,0,0,.12);border-radius:0 12px 12px 0;}
+.bk-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:10px 14px 10px 18px;background:linear-gradient(0deg,rgba(0,0,0,.45) 0%,transparent 65%);}
+.bk-t{font-family:'Amiri',serif;font-size:13px;font-weight:700;color:#fff;line-height:1.3;}
+.bk-g{font-size:10px;color:rgba(255,255,255,.72);margin-top:2px;}
+.bk-pb{height:3px;background:rgba(255,255,255,.22);border-radius:3px;margin-top:5px;overflow:hidden;}
+.bk-pf{height:100%;background:var(--gd-l);border-radius:3px;}
+.bk-inf{font-size:10px;color:var(--ink-l);text-align:center;}
+.bk-del{position:absolute;top:7px;left:7px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;z-index:10;transition:background .2s;}
+.bk-del:hover{background:rgba(200,50,80,.7);}
+.new-bk{flex-shrink:0;width:112px;height:154px;border:2px dashed rgba(212,120,154,.28);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .25s;}
+.new-bk:hover{background:rgba(212,120,154,.06);border-color:var(--pk);}
+.new-bk .pl{font-size:30px;color:var(--pk-l);}
+.new-bk span{font-size:11px;color:var(--ink-l);font-style:italic;}
+
+/* TEMPLATES */
+.tmpl-row{display:flex;gap:12px;padding:0 18px 16px;overflow-x:auto;scrollbar-width:none;}
+.tmpl{flex-shrink:0;width:96px;cursor:pointer;}
+.tmpl-p{width:96px;height:124px;border-radius:10px;border:2px solid transparent;background:var(--wh);box-shadow:0 2px 10px var(--sh);padding:9px 8px;display:flex;flex-direction:column;gap:5px;margin-bottom:6px;transition:all .25s;overflow:hidden;}
+.tl{height:5px;border-radius:3px;background:var(--cr-d);}
+.tl.h{height:9px;background:var(--pk-l);width:65%;}
+.tmpl.sel .tmpl-p{border-color:var(--pk-d);box-shadow:0 0 0 2px var(--pk);}
+.tmpl-n{text-align:center;font-size:11px;color:var(--ink-l);font-weight:600;}
+.tmpl.sel .tmpl-n{color:var(--pk-d);}
+
+/* FONTS */
+.font-list{padding:0 18px 16px;display:flex;flex-direction:column;gap:9px;}
+.fi{background:var(--wh);border-radius:14px;padding:12px 15px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border:2px solid transparent;box-shadow:0 2px 8px var(--sh);transition:all .25s;}
+.fi.sel{border-color:var(--pk);background:var(--pk-p);}
+.fi-s{font-size:24px;color:var(--ink);line-height:1;}
+.fi-n{font-size:13px;color:var(--ink);font-weight:600;}
+.fi-t{font-size:10px;color:var(--ink-l);letter-spacing:.4px;}
+.fi-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(212,120,154,.3);display:flex;align-items:center;justify-content:center;transition:all .25s;}
+.fi.sel .fi-dot{background:var(--pk-d);border-color:var(--pk-d);}
+.fi-di{width:8px;height:8px;border-radius:50%;background:#fff;opacity:0;transition:opacity .25s;}
+.fi.sel .fi-di{opacity:1;}
+
+/* ══ NOVEL OVERLAY ══ */
+#novel-overlay{background:var(--cr);}
+.nov-hero{background:linear-gradient(135deg,var(--pk-p),var(--lv-p));padding:18px 20px 20px;position:relative;overflow:hidden;}
+.nov-hero::after{content:'✦';position:absolute;bottom:-16px;left:16px;font-size:80px;color:var(--pk-l);opacity:.2;line-height:1;}
+.nov-back{display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:10px;}
+.nov-back span{font-size:13px;color:var(--pk-d);font-weight:600;}
+.nov-title-input{font-family:'Amiri',serif;font-size:24px;font-weight:700;color:var(--ink);background:transparent;border:none;outline:none;width:100%;direction:rtl;}
+.nov-title-input::placeholder{color:var(--pk-l);}
+.nov-genre-input{font-size:12px;color:var(--ink-l);background:transparent;border:none;outline:none;width:100%;margin-top:5px;font-family:'Cairo';direction:rtl;}
+.nov-genre-input::placeholder{color:var(--lv-l);}
+
+/* NOVEL TABS */
+.nov-tabs{display:flex;border-bottom:2px solid rgba(212,120,154,.12);background:var(--wh);position:sticky;top:0;z-index:55;}
+.ntab{flex:1;padding:11px 6px;text-align:center;font-size:11px;font-weight:600;color:var(--ink-l);cursor:pointer;transition:all .25s;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:'Cairo';}
+.ntab.active{color:var(--pk-d);border-bottom-color:var(--pk-d);}
+
+/* CHAPTER LIST */
+.ch-list{padding:12px 16px;}
+.ch-item{background:var(--wh);border-radius:14px;margin-bottom:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 2px 10px var(--sh);border:1px solid rgba(212,120,154,.1);transition:all .25s;}
+.ch-item:hover,.ch-item.active-ch{background:var(--pk-p);border-color:var(--pk-l);}
+.ch-num{font-family:'Amiri',serif;font-size:18px;font-weight:700;color:var(--pk);min-width:30px;text-align:center;}
+.ch-info{flex:1;}
+.ch-name{font-family:'Amiri',serif;font-size:15px;color:var(--ink);font-weight:700;}
+.ch-wc{font-size:11px;color:var(--ink-l);margin-top:2px;}
+.ch-del{font-size:16px;cursor:pointer;padding:4px;opacity:.5;transition:opacity .2s;}
+.ch-del:hover{opacity:1;}
+.add-ch-btn{width:100%;padding:13px;background:transparent;border:2px dashed rgba(212,120,154,.25);border-radius:14px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font-family:'Cairo';font-size:13px;color:var(--ink-l);font-style:italic;transition:all .2s;margin-top:4px;}
+.add-ch-btn:hover{background:rgba(212,120,154,.05);border-color:var(--pk);color:var(--pk-d);}
+
+/* CHARS IN NOVEL */
+.char-list{padding:12px 16px;}
+.char-row{background:var(--wh);border-radius:14px;margin-bottom:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 2px 10px var(--sh);border:1px solid rgba(184,168,212,.15);transition:all .25s;}
+.char-row:hover{background:var(--lv-p);}
+.char-av-sm{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;}
+.char-av-sm img{width:100%;height:100%;object-fit:cover;}
+.char-row-info{flex:1;}
+.char-row-name{font-family:'Amiri',serif;font-size:15px;font-weight:700;color:var(--ink);}
+.char-row-role{font-size:11px;color:var(--ink-l);margin-top:2px;}
+.add-item-btn{width:100%;padding:13px;background:transparent;border:2px dashed rgba(184,168,212,.25);border-radius:14px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font-family:'Cairo';font-size:13px;color:var(--ink-l);font-style:italic;transition:all .2s;margin-top:4px;}
+.add-item-btn:hover{background:rgba(184,168,212,.05);border-color:var(--lv);color:var(--lv-d);}
+
+/* PLACES IN NOVEL */
+.place-list{padding:12px 16px;}
+.place-row{background:var(--wh);border-radius:14px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 10px var(--sh);border:1px solid rgba(212,120,154,.1);cursor:pointer;transition:all .25s;}
+.place-row:hover{transform:translateY(-2px);}
+.place-banner-sm{height:70px;display:flex;align-items:center;padding:0 16px;gap:12px;font-size:28px;}
+.place-row-info{padding:10px 16px 13px;}
+.place-row-name{font-family:'Amiri',serif;font-size:15px;font-weight:700;color:var(--ink);}
+.place-row-desc{font-size:12px;color:var(--ink-l);margin-top:3px;font-style:italic;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+/* ══ EDITOR OVERLAY ══ */
+#editor-overlay{background:var(--wh);}
+.ed-head{padding:12px 16px;background:var(--wh);border-bottom:1px solid rgba(212,120,154,.12);position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:10px;}
+.ed-back{width:34px;height:34px;border-radius:50%;background:var(--pk-p);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:all .2s;flex-shrink:0;border:1px solid rgba(212,120,154,.2);}
+.ed-back:hover{background:var(--pk-l);}
+.ed-ch-title{font-family:'Amiri',serif;font-size:18px;font-weight:700;color:var(--ink);flex:1;background:transparent;border:none;outline:none;direction:rtl;}
+.ed-ch-title::placeholder{color:var(--pk-l);}
+.ed-save-badge{font-size:11px;color:var(--pk);font-family:'Cairo';display:flex;align-items:center;gap:4px;flex-shrink:0;}
+
+.ed-dir-row{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:var(--cr);border-bottom:1px solid rgba(212,120,154,.08);}
+.ed-dir-lbl{font-size:12px;color:var(--ink-l);}
+.dir-btns{display:flex;gap:5px;}
+.dir-btn{padding:5px 13px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid rgba(212,120,154,.22);color:var(--ink-l);font-family:'Cairo';transition:all .2s;}
+.dir-btn.active{background:var(--pk-d);color:#fff;border-color:transparent;}
+
+.ed-sc-row{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:var(--cr);border-bottom:1px solid rgba(212,120,154,.06);}
+.ed-sc-lbl{font-size:12px;color:var(--ink-l);display:flex;align-items:center;gap:6px;}
+.toggle{width:44px;height:24px;background:var(--cr-d);border-radius:12px;position:relative;cursor:pointer;transition:background .3s;}
+.toggle.on{background:linear-gradient(90deg,var(--pk-l),var(--pk));}
+.tk{position:absolute;top:3px;right:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .3s;box-shadow:0 2px 5px rgba(0,0,0,.15);}
+.toggle.on .tk{transform:translateX(-20px);}
+
+.ed-toolbar{display:flex;align-items:center;gap:5px;padding:8px 14px;border-bottom:1px solid rgba(212,120,154,.1);flex-wrap:wrap;background:var(--wh);}
+.tb{padding:5px 10px;border-radius:8px;border:1px solid rgba(212,120,154,.18);background:transparent;font-size:12px;color:var(--ink-m);cursor:pointer;font-family:'Cairo';transition:all .2s;}
+.tb:hover{background:var(--pk-p);}
+.tb-sep{width:1px;height:18px;background:rgba(212,120,154,.15);}
+
+.ed-body-wrap{flex:1;position:relative;}
+.ed-body{
+  padding:20px 22px;min-height:300px;
+  font-family:'Amiri',serif;font-size:18px;line-height:2.1;color:var(--ink);
+  outline:none;direction:rtl;text-align:right;
+  background:repeating-linear-gradient(transparent,transparent 41px,rgba(212,120,154,.07) 41px,rgba(212,120,154,.07) 42px);
+  background-position:0 21px;caret-color:var(--pk-d);
+}
+.ed-body[data-dir="ltr"]{direction:ltr;text-align:left;font-family:'Cormorant Garamond',serif;}
+
+.ed-footer{padding:9px 16px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(212,120,154,.08);background:var(--wh);position:sticky;bottom:0;}
+.ef-wc{font-size:11px;color:var(--ink-l);}
+.ef-saved{font-size:11px;color:var(--pk);display:flex;align-items:center;gap:4px;}
+
+/* DOWNLOAD BTN */
+.dl-wrap{padding:12px 16px 0;}
+.dl-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(135deg,var(--pk-l),var(--pk-d));color:#fff;font-family:'Cairo';font-size:13px;font-weight:700;padding:12px;border-radius:24px;border:none;cursor:pointer;box-shadow:0 5px 18px rgba(168,80,112,.4);transition:all .3s;animation:pinkP 3s ease-in-out infinite;}
+@keyframes pinkP{0%,100%{box-shadow:0 5px 18px rgba(168,80,112,.4);}50%{box-shadow:0 7px 28px rgba(168,80,112,.65);}}
+.dl-btn:active{transform:scale(.98);}
+.exp-menu{margin:8px 16px 16px;background:var(--wh);border-radius:16px;box-shadow:0 4px 20px var(--sh);border:1px solid rgba(212,120,154,.12);overflow:hidden;display:none;}
+.exp-menu.open{display:block;animation:fadeUp .25s ease;}
+.exp-title{padding:12px 16px 9px;font-family:'Amiri',serif;font-size:15px;font-weight:700;color:var(--ink);border-bottom:1px solid rgba(212,120,154,.1);}
+.exp-opt{display:flex;align-items:center;gap:13px;padding:13px 16px;cursor:pointer;transition:background .2s;font-size:13px;color:var(--ink-m);font-family:'Cairo';}
+.exp-opt:hover{background:var(--pk-p);}
+.exp-icon{font-size:20px;}
+
+/* ══ CHAR DETAIL ══ */
+#char-detail-overlay{background:var(--wh);}
+.cdp-hero{height:180px;position:relative;overflow:hidden;flex-shrink:0;}
+.cdp-bg{position:absolute;inset:0;}
+.cdp-back{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;z-index:10;border:1px solid rgba(212,120,154,.2);}
+.cdp-av{width:82px;height:82px;border-radius:50%;border:4px solid #fff;box-shadow:0 6px 22px var(--sh-d);position:absolute;bottom:-20px;right:20px;z-index:5;display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;font-size:30px;font-weight:700;color:#fff;overflow:hidden;}
+.cdp-av img{width:100%;height:100%;object-fit:cover;}
+.cdp-na{position:absolute;bottom:-16px;left:20px;z-index:5;}
+.cdp-cn{font-family:'Amiri',serif;font-size:20px;font-weight:700;color:var(--ink);}
+.cdp-cr{font-size:11px;color:var(--pk-d);letter-spacing:.5px;margin-top:2px;}
+.cdp-tabs{display:flex;gap:7px;padding:40px 16px 10px;overflow-x:auto;scrollbar-width:none;}
+.cdp-tab{flex-shrink:0;padding:6px 15px;border-radius:20px;font-size:12px;border:1px solid rgba(212,120,154,.2);color:var(--ink-l);cursor:pointer;transition:all .2s;font-family:'Cairo';}
+.cdp-tab.active{background:var(--pk-d);color:#fff;border-color:var(--pk-d);}
+.cdp-body{padding:4px 16px 100px;}
+.dbox{background:var(--cr);border-radius:13px;padding:13px 15px;margin-bottom:10px;border:1px solid rgba(212,120,154,.1);}
+.dbox-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-l);margin-bottom:8px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.dbox-lbl::after{content:'';flex:1;height:1px;background:rgba(212,120,154,.16);}
+.dbox-in{width:100%;background:transparent;border:none;outline:none;font-family:'Amiri',serif;font-size:15px;color:var(--ink);line-height:2;direction:rtl;resize:none;min-height:60px;}
+.dbox-in::placeholder{color:var(--pk-l);font-style:italic;}
+.tags-in{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.tag-chip{padding:4px 10px;border-radius:20px;font-size:12px;background:var(--pk-p);color:var(--pk-d);display:flex;align-items:center;gap:4px;cursor:pointer;}
+.tag-chip .rem{font-size:14px;color:var(--pk);cursor:pointer;}
+.tag-add-in{border:none;outline:none;background:transparent;font-size:12px;font-family:'Cairo';color:var(--ink-l);width:80px;direction:rtl;}
+.tag-add-in::placeholder{color:var(--lv-l);}
+.upload-img-btn{width:100%;padding:13px;border:2px dashed rgba(212,120,154,.22);border-radius:13px;background:transparent;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font-family:'Cairo';font-size:13px;color:var(--ink-l);font-style:italic;margin-bottom:10px;transition:all .2s;}
+.upload-img-btn:hover{background:rgba(212,120,154,.05);border-color:var(--pk);color:var(--pk-d);}
+.gal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.gal-cell{aspect-ratio:1;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;}
+.gal-cell img{width:100%;height:100%;object-fit:cover;}
+.gal-cell .del-img{position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;}
+.gal-add{border:2px dashed rgba(212,120,154,.22);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--pk-l);transition:all .2s;}
+.gal-add:hover{background:rgba(212,120,154,.06);border-color:var(--pk);}
+
+/* ══ PLACE DETAIL ══ */
+#place-detail-overlay{background:var(--wh);}
+.place-det-form{padding:16px 16px 100px;}
+.form-field{margin-bottom:13px;}
+.form-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-l);font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.form-lbl::after{content:'';flex:1;height:1px;background:rgba(212,120,154,.14);}
+.form-in{width:100%;background:var(--cr);border:1px solid rgba(212,120,154,.18);border-radius:12px;padding:11px 14px;font-family:'Amiri',serif;font-size:15px;color:var(--ink);direction:rtl;outline:none;resize:none;line-height:1.8;transition:border-color .2s;}
+.form-in:focus{border-color:var(--pk);}
+.form-in::placeholder{color:var(--pk-l);font-style:italic;}
+.emoji-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px;}
+.ej-btn{width:40px;height:40px;border-radius:10px;border:2px solid transparent;background:var(--cr);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:all .2s;}
+.ej-btn.sel{border-color:var(--pk-d);background:var(--pk-p);}
+.color-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px;}
+.col-btn{width:36px;height:36px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s;}
+.col-btn.sel{border-color:var(--ink);transform:scale(1.1);}
+.save-place-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--pk-l),var(--pk-d));color:#fff;border:none;border-radius:22px;font-family:'Cairo';font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(168,80,112,.35);}
+
+/* MODAL */
+.modal-bg{position:absolute;inset:0;background:rgba(45,26,40,.5);z-index:400;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+.modal-bg.open{display:flex;animation:fadeIn .2s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal{background:var(--wh);border-radius:24px;padding:24px 22px 20px;width:330px;box-shadow:0 20px 60px var(--sh-d);}
+.modal-title{font-family:'Amiri',serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:16px;}
+.modal-in{width:100%;background:var(--cr);border:1px solid rgba(212,120,154,.22);border-radius:12px;padding:10px 14px;font-family:'Amiri',serif;font-size:16px;color:var(--ink);direction:rtl;outline:none;margin-bottom:10px;transition:border-color .2s;}
+.modal-in:focus{border-color:var(--pk);}
+.modal-in::placeholder{color:var(--pk-l);font-style:italic;}
+.modal-btns{display:flex;gap:10px;margin-top:6px;}
+.modal-ok{flex:1;padding:10px;background:linear-gradient(135deg,var(--pk),var(--pk-d));color:#fff;border:none;border-radius:20px;font-family:'Cairo';font-size:13px;font-weight:700;cursor:pointer;}
+.modal-cancel{flex:1;padding:10px;background:var(--cr-d);color:var(--ink-l);border:none;border-radius:20px;font-family:'Cairo';font-size:13px;cursor:pointer;}
+
+/* GLOBAL CHARACTERS SCREEN */
+#chars-screen{background:var(--lv-p);}
+#chars-screen .s-head{background:var(--lv-p);}
+.chars-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:14px 16px 100px;}
+.char-card{background:var(--wh);border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 3px 14px var(--sh);border:1px solid rgba(184,168,212,.18);transition:all .3s;}
+.char-card:hover{transform:translateY(-3px);box-shadow:0 8px 26px var(--sh);}
+.cc-top{height:55px;position:relative;display:flex;align-items:flex-end;justify-content:center;}
+.cc-av{width:60px;height:60px;border-radius:50%;border:3px solid #fff;box-shadow:0 3px 12px var(--sh-d);position:absolute;bottom:-28px;z-index:2;display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;font-size:22px;font-weight:700;color:#fff;overflow:hidden;}
+.cc-av img{width:100%;height:100%;object-fit:cover;}
+.cc-body{padding:34px 10px 14px;text-align:center;}
+.cc-nm{font-family:'Amiri',serif;font-size:15px;font-weight:700;color:var(--ink);}
+.cc-role{display:inline-block;font-size:10px;padding:3px 10px;border-radius:20px;margin-top:5px;font-weight:700;}
+.cc-del{position:absolute;top:6px;left:6px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;z-index:5;}
+.add-card{border:2px dashed rgba(184,168,212,.3);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:155px;cursor:pointer;transition:all .3s;}
+.add-card:hover{background:rgba(184,168,212,.06);border-color:var(--lv);}
+.add-card .pl{font-size:28px;color:var(--lv-l);}
+.add-card span{font-size:11px;color:var(--ink-l);font-style:italic;}
+
+/* GLOBAL PLACES SCREEN */
+#places-screen{background:var(--pk-p);}
+#places-screen .s-head{background:var(--pk-p);}
+.places-grid{display:flex;flex-direction:column;gap:12px;padding:12px 16px 100px;}
+.place-card{background:var(--wh);border-radius:18px;overflow:hidden;box-shadow:0 3px 14px var(--sh);border:1px solid rgba(212,120,154,.1);cursor:pointer;transition:all .3s;}
+.place-card:hover{transform:translateY(-2px);}
+.pc-banner{height:90px;display:flex;align-items:center;padding:0 18px;gap:12px;font-size:40px;position:relative;}
+.pc-type{position:absolute;top:10px;right:12px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.4px;backdrop-filter:blur(8px);font-family:'Cairo';}
+.pc-body{padding:12px 16px 14px;}
+.pc-name{font-family:'Amiri',serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.pc-desc{font-family:'Amiri',serif;font-size:13px;color:var(--ink-l);line-height:1.7;font-style:italic;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.pc-del{position:absolute;top:10px;left:12px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;z-index:5;}
+.add-place-btn{width:100%;padding:14px;background:transparent;border:2px dashed rgba(212,120,154,.25);border-radius:16px;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;font-family:'Cairo';font-size:13px;color:var(--ink-l);font-style:italic;transition:all .2s;}
+.add-place-btn:hover{background:rgba(212,120,154,.05);border-color:var(--pk);color:var(--pk-d);}
+
+/* EMPTY STATES */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 30px;text-align:center;gap:12px;}
+.empty-state .ei{font-size:50px;opacity:.4;}
+.empty-state .et{font-family:'Amiri',serif;font-size:18px;color:var(--ink-m);}
+.empty-state .es{font-size:13px;color:var(--ink-l);font-style:italic;line-height:1.6;}
+.empty-state .e-btn{margin-top:8px;padding:10px 24px;background:linear-gradient(135deg,var(--pk-l),var(--pk-d));color:#fff;border:none;border-radius:22px;font-family:'Cairo';font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(168,80,112,.3);}
+
+.hidden{display:none;}
+input[type=file].hidden{display:none;}
+</style>
+</head>
+<body>
+
+<!-- File inputs -->
+<input type="file" id="char-img-in" accept="image/*" class="hidden" onchange="onCharImg(event)">
+<input type="file" id="place-img-in" accept="image/*" class="hidden" onchange="onPlaceImgUpload(event)">
+
+<div class="phone" id="phone">
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="st-t" id="clock">٩:٤١</span>
+    <div class="st-i"><span>📶</span><span>🔋</span></div>
+  </div>
+
+  <!-- Floral corners -->
+  <svg class="fc tl" viewBox="0 0 70 70" fill="none"><path d="M5 65Q5 5 65 5" stroke="#d4789a" stroke-width="1.5"/><circle cx="17" cy="17" r="5" fill="#d4789a" opacity=".7"/><circle cx="33" cy="9" r="4" fill="#b8a8d4" opacity=".65"/><path d="M11 29Q7 17 20 15" stroke="#d4789a" stroke-width="1.2" fill="none"/><path d="M29 7C32 3 38 5 34 11" stroke="#b8a8d4" stroke-width="1.2" fill="none"/></svg>
+  <svg class="fc tr" viewBox="0 0 70 70" fill="none"><path d="M5 65Q5 5 65 5" stroke="#d4789a" stroke-width="1.5"/><circle cx="17" cy="17" r="5" fill="#d4789a" opacity=".7"/><circle cx="33" cy="9" r="4" fill="#b8a8d4" opacity=".65"/><path d="M11 29Q7 17 20 15" stroke="#d4789a" stroke-width="1.2" fill="none"/></svg>
+  <svg class="fc bl" viewBox="0 0 70 70" fill="none"><path d="M5 65Q5 5 65 5" stroke="#d4789a" stroke-width="1.5"/><circle cx="17" cy="17" r="4" fill="#b8a8d4" opacity=".6"/><circle cx="33" cy="9" r="3" fill="#d4789a" opacity=".5"/></svg>
+  <svg class="fc br" viewBox="0 0 70 70" fill="none"><path d="M5 65Q5 5 65 5" stroke="#d4789a" stroke-width="1.5"/><circle cx="17" cy="17" r="4" fill="#b8a8d4" opacity=".6"/><circle cx="33" cy="9" r="3" fill="#d4789a" opacity=".5"/></svg>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- ══════════════ APP AREA ══════════════ -->
+  <div class="app-area">
+
+    <!-- ▸ HOME SCREEN -->
+    <div class="screen active" id="home-screen">
+      <div class="hero">
+        <div class="hero-title">✦ ورشة الروائي</div>
+        <div class="hero-greet" id="hero-greet">أهلاً بكِ 🌸</div>
+        <div class="hero-sub">كل قصصكِ وشخصياتكِ وأماكنكِ — هنا</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row" id="home-stats">
+        <div class="stat-pill"><div class="stat-num" id="stat-novels">٠</div><div class="stat-lbl">روايات</div></div>
+        <div class="stat-pill"><div class="stat-num" id="stat-chars">٠</div><div class="stat-lbl">شخصية</div></div>
+        <div class="stat-pill"><div class="stat-num" id="stat-places">٠</div><div class="stat-lbl">مكان</div></div>
+        <div class="stat-pill"><div class="stat-num" id="stat-words">٠</div><div class="stat-lbl">كلمة</div></div>
+      </div>
+
+      <div class="gd" style="margin:0 20px"></div>
+      <div class="sec-h">📚 رواياتي</div>
+      <div class="books-shelf" id="books-shelf">
+        <!-- novels injected here -->
+        <div class="new-bk" onclick="openNewNovelModal()">
+          <div class="pl">＋</div><span>رواية جديدة</span>
+        </div>
+      </div>
+
+      <div class="gd" style="margin:4px 20px"></div>
+      <div class="sec-h">✦ قوالب الكتب</div>
+      <div class="tmpl-row">
+        <div class="tmpl sel" onclick="selTmpl(this,'classic')">
+          <div class="tmpl-p"><div class="tl h"></div><div class="tl" style="width:90%"></div><div class="tl" style="width:80%"></div><div class="tl" style="width:70%"></div><div class="tl" style="width:88%"></div></div>
+          <div class="tmpl-n">كلاسيكي</div>
+        </div>
+        <div class="tmpl" onclick="selTmpl(this,'literary')">
+          <div class="tmpl-p" style="background:var(--lv-p)"><div style="text-align:center;font-size:12px;color:var(--lv);margin-bottom:4px">✦</div><div class="tl h" style="background:var(--lv-l);margin:0 auto"></div><div class="tl" style="width:88%;background:var(--lv-l)"></div><div class="tl" style="width:40%;background:var(--lv-l);margin:4px auto 0"></div></div>
+          <div class="tmpl-n">أدبي</div>
+        </div>
+        <div class="tmpl" onclick="selTmpl(this,'romantic')">
+          <div class="tmpl-p" style="background:var(--pk-p)"><div class="tl h" style="background:var(--pk-l)"></div><div class="tl" style="width:92%;background:var(--pk-l);opacity:.6"></div><div class="tl" style="width:78%;background:var(--pk-l);opacity:.6"></div><div class="tl" style="width:85%;background:var(--pk-l);opacity:.6"></div></div>
+          <div class="tmpl-n">رومانسي</div>
+        </div>
+        <div class="tmpl" onclick="selTmpl(this,'epic')">
+          <div class="tmpl-p" style="background:var(--gd-p)"><div class="tl h" style="background:var(--gd-l)"></div><div class="tl" style="width:88%;background:var(--gd-l)"></div><div class="tl" style="width:72%;background:var(--gd-l)"></div><div style="text-align:center;font-size:11px;color:var(--gd);margin-top:4px">✦</div></div>
+          <div class="tmpl-n">ملحمي</div>
+        </div>
+      </div>
+
+      <div class="sec-h">✦ الخطوط</div>
+      <div class="font-list">
+        <div class="fi sel" onclick="selFont(this,'Amiri','أميري','نسخي كلاسيكي')">
+          <div class="fi-s" style="font-family:'Amiri',serif">أبجد هوز</div>
+          <div><div class="fi-n">أميري</div><div class="fi-t">نسخي · كلاسيكي</div></div>
+          <div class="fi-dot"><div class="fi-di"></div></div>
+        </div>
+        <div class="fi" onclick="selFont(this,'Scheherazade New','شهرزاد','نسخي أنيق')">
+          <div class="fi-s" style="font-family:'Scheherazade New',serif">أبجد هوز</div>
+          <div><div class="fi-n">شهرزاد</div><div class="fi-t">نسخي · أنيق</div></div>
+          <div class="fi-dot"><div class="fi-di"></div></div>
+        </div>
+        <div class="fi" onclick="selFont(this,'Cairo','كايرو','حديث ومقروء')">
+          <div class="fi-s" style="font-family:'Cairo',sans-serif;font-size:20px">أبجد هوز</div>
+          <div><div class="fi-n">كايرو</div><div class="fi-t">حديث · مقروء</div></div>
+          <div class="fi-dot"><div class="fi-di"></div></div>
+        </div>
+        <div class="fi" onclick="selFont(this,'Cormorant Garamond','Cormorant','Serif · Elegant')">
+          <div class="fi-s" style="font-family:'Cormorant Garamond',serif;font-style:italic">Abc Xyz</div>
+          <div><div class="fi-n">Cormorant</div><div class="fi-t">Serif · إنجليزي</div></div>
+          <div class="fi-dot"><div class="fi-di"></div></div>
+        </div>
+      </div>
+      <div style="height:100px"></div>
+    </div>
+
+    <!-- ▸ CHARACTERS SCREEN -->
+    <div class="screen" id="chars-screen">
+      <div class="s-head">
+        <div><div class="s-title">الشخصيات</div><div class="s-sub" id="chars-sub">لا توجد شخصيات بعد</div></div>
+        <button class="s-btn lv" onclick="openNewCharModal()">+ جديدة</button>
+      </div>
+      <div class="chars-grid" id="chars-grid">
+        <div class="empty-state" style="grid-column:1/-1">
+          <div class="ei">🌸</div>
+          <div class="et">لا توجد شخصيات بعد</div>
+          <div class="es">أضيفي أولى شخصيات روايتكِ<br>واملأي تفاصيلها كاملة</div>
+          <button class="e-btn" onclick="openNewCharModal()">+ أضيفي شخصية</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ▸ PLACES SCREEN -->
+    <div class="screen" id="places-screen">
+      <div class="s-head">
+        <div><div class="s-title">الأماكن</div><div class="s-sub" id="places-sub">لا توجد أماكن بعد</div></div>
+        <button class="s-btn" onclick="openNewPlace()">+ مكان</button>
+      </div>
+      <div class="places-grid" id="places-grid">
+        <div class="empty-state">
+          <div class="ei">🗺️</div>
+          <div class="et">لا توجد أماكن بعد</div>
+          <div class="es">أضيفي أماكن روايتكِ — القصور والمدن<br>والأماكن الغامضة</div>
+          <button class="e-btn" onclick="openNewPlace()">+ أضيفي مكاناً</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ▸ WRITING SCREEN -->
+    <div class="screen" id="writing-screen">
+      <div class="s-head">
+        <div><div class="s-title">الكتابة</div><div class="s-sub">اختاري رواية للكتابة</div></div>
+      </div>
+      <div id="writing-empty" class="empty-state">
+        <div class="ei">✍️</div>
+        <div class="et">ابدئي روايتكِ</div>
+        <div class="es">أنشئي رواية أولاً من صفحة المكتبة<br>ثم ارجعي هنا للكتابة</div>
+        <button class="e-btn" onclick="switchTab('home-screen',0)">← المكتبة</button>
+      </div>
+      <div id="writing-list" class="hidden" style="padding:12px 16px 100px">
+        <!-- novels for writing injected here -->
+      </div>
+    </div>
+
+    <!-- ══ NOVEL OVERLAY ══ -->
+    <div class="overlay" id="novel-overlay">
+      <div class="nov-hero">
+        <div class="nov-back" onclick="closeOverlay('novel-overlay')">
+          <span>←</span><span>المكتبة</span>
+        </div>
+        <input class="nov-title-input" id="nov-title-in" placeholder="عنوان الرواية..." oninput="saveCurrentNovel()">
+        <input class="nov-genre-input" id="nov-genre-in" placeholder="النوع الأدبي (مثل: تاريخية، رومانسية...)" oninput="saveCurrentNovel()">
+      </div>
+      <div class="nov-tabs">
+        <div class="ntab active" onclick="novTab(this,'nov-chapters')">الفصول</div>
+        <div class="ntab" onclick="novTab(this,'nov-chars')">الشخصيات</div>
+        <div class="ntab" onclick="novTab(this,'nov-places')">الأماكن</div>
+        <div class="ntab" onclick="novTab(this,'nov-export')">تحميل</div>
+      </div>
+      <!-- Chapters tab -->
+      <div id="nov-chapters">
+        <div class="ch-list" id="ch-list"></div>
+        <div style="padding:0 16px 16px">
+          <div class="add-ch-btn" onclick="addChapter()">＋ فصل جديد</div>
+        </div>
+      </div>
+      <!-- Chars tab -->
+      <div id="nov-chars" class="hidden">
+        <div class="char-list" id="nov-char-list"></div>
+        <div style="padding:0 16px 16px">
+          <div class="add-item-btn" onclick="openNewCharModal()">＋ إضافة شخصية</div>
+        </div>
+      </div>
+      <!-- Places tab -->
+      <div id="nov-places" class="hidden">
+        <div class="place-list" id="nov-place-list"></div>
+        <div style="padding:0 16px 16px">
+          <div class="add-item-btn" style="border-color:rgba(212,120,154,.25)" onclick="openNewPlace()">＋ إضافة مكان</div>
+        </div>
+      </div>
+      <!-- Export tab -->
+      <div id="nov-export" class="hidden">
+        <div class="dl-wrap">
+          <button class="dl-btn" onclick="toggleExpMenu()">📥 تحميل الرواية</button>
+        </div>
+        <div class="exp-menu" id="exp-menu">
+          <div class="exp-title">✦ اختاري صيغة التحميل</div>
+          <div class="exp-opt" onclick="doExport('txt')"><span class="exp-icon">📃</span> نص عادي (.txt)</div>
+          <div class="exp-opt" onclick="doExport('html')"><span class="exp-icon">📄</span> صفحة ويب (.html)</div>
+          <div class="exp-opt" onclick="doExport('print')"><span class="exp-icon">🖨️</span> طباعة / PDF</div>
+        </div>
+        <div style="height:100px"></div>
+      </div>
+    </div>
+
+    <!-- ══ EDITOR OVERLAY ══ -->
+    <div class="overlay" id="editor-overlay">
+      <div class="ed-head">
+        <div class="ed-back" onclick="closeEditor()">←</div>
+        <input class="ed-ch-title" id="ed-ch-title" placeholder="عنوان الفصل..." oninput="saveChapter()">
+        <div class="ed-save-badge" id="save-badge">💾 محفوظ</div>
+      </div>
+      <div class="ed-dir-row">
+        <div class="ed-dir-lbl">اتجاه الكتابة</div>
+        <div class="dir-btns">
+          <div class="dir-btn active" id="dir-ar" onclick="setDir('rtl')">عربي ←</div>
+          <div class="dir-btn" id="dir-en" onclick="setDir('ltr')">→ English</div>
+        </div>
+      </div>
+      <div class="ed-sc-row">
+        <div class="ed-sc-lbl">✏️ مساعد التصحيح</div>
+        <div class="toggle on" id="sc-toggle" onclick="toggleSC()"><div class="tk"></div></div>
+      </div>
+      <div class="ed-toolbar">
+        <button class="tb" style="font-weight:700" onclick="fmt('bold')">ع</button>
+        <button class="tb" style="font-style:italic" onclick="fmt('italic')">م</button>
+        <button class="tb" style="text-decoration:underline" onclick="fmt('underline')">خ</button>
+        <div class="tb-sep"></div>
+        <button class="tb" onclick="fmt('formatBlock','h2')">عنوان</button>
+        <button class="tb" onclick="fmt('formatBlock','p')">فقرة</button>
+        <div class="tb-sep"></div>
+        <button class="tb" onclick="toast('💬 تعليق مضاف')">💬</button>
+        <button class="tb" onclick="toast('🔖 إشارة مرجعية')">🔖</button>
+      </div>
+      <div class="ed-body-wrap">
+        <div class="ed-body" id="ed-body" contenteditable="true" spellcheck="true" oninput="onEditorInput()"></div>
+      </div>
+      <div class="ed-footer">
+        <div class="ef-wc" id="ef-wc">الكلمات: ٠</div>
+        <div class="ef-saved" id="ef-saved">✓ محفوظ</div>
+      </div>
+    </div>
+
+    <!-- ══ CHAR DETAIL OVERLAY ══ -->
+    <div class="overlay" id="char-detail-overlay">
+      <div class="cdp-hero">
+        <div class="cdp-bg" id="cdp-bg"></div>
+        <div class="cdp-back" onclick="closeOverlay('char-detail-overlay')">←</div>
+        <div class="cdp-av" id="cdp-av" onclick="document.getElementById('char-img-in').click()"></div>
+        <div class="cdp-na">
+          <div class="cdp-cn" id="cdp-cn"></div>
+          <div class="cdp-cr" id="cdp-cr"></div>
+        </div>
+      </div>
+      <div class="cdp-tabs">
+        <div class="cdp-tab active" onclick="cdpTab(this,'cdp-personality')">الشخصية</div>
+        <div class="cdp-tab" onclick="cdpTab(this,'cdp-backstory')">القصة</div>
+        <div class="cdp-tab" onclick="cdpTab(this,'cdp-physical')">المظهر</div>
+        <div class="cdp-tab" onclick="cdpTab(this,'cdp-gallery')">الصور</div>
+      </div>
+      <div class="cdp-body">
+        <div id="cdp-personality">
+          <div class="dbox">
+            <div class="dbox-lbl">الاسم والدور</div>
+            <input class="dbox-in" id="cdp-name-in" placeholder="اسم الشخصية..." oninput="saveCharDetail()">
+            <input class="dbox-in" id="cdp-role-in" placeholder="الدور (بطلة، شرير، صديقة...)" oninput="saveCharDetail()" style="min-height:0">
+          </div>
+          <div class="dbox">
+            <div class="dbox-lbl">السمات الشخصية</div>
+            <div class="tags-in" id="traits-container">
+              <input class="tag-add-in" id="trait-in" placeholder="أضيفي سمة..." onkeydown="addTrait(event)">
+            </div>
+          </div>
+          <div class="dbox">
+            <div class="dbox-lbl">الدافع والهدف</div>
+            <textarea class="dbox-in" id="cdp-motivation" placeholder="ما الذي تريده هذه الشخصية؟" oninput="saveCharDetail()" rows="3"></textarea>
+          </div>
+        </div>
+        <div id="cdp-backstory" class="hidden">
+          <div class="dbox">
+            <div class="dbox-lbl">القصة الخلفية</div>
+            <textarea class="dbox-in" id="cdp-backstory-in" placeholder="من أين أتت هذه الشخصية؟ ما الذي شكّلها؟" oninput="saveCharDetail()" rows="5"></textarea>
+          </div>
+          <div class="dbox">
+            <div class="dbox-lbl">مسار التحول</div>
+            <textarea class="dbox-in" id="cdp-arc" placeholder="كيف ستتغير عبر الرواية؟" oninput="saveCharDetail()" rows="3"></textarea>
+          </div>
+        </div>
+        <div id="cdp-physical" class="hidden">
+          <div class="dbox">
+            <div class="dbox-lbl">الوصف الجسدي</div>
+            <textarea class="dbox-in" id="cdp-physical-in" placeholder="الطول، لون الشعر، العيون، الملامح..." oninput="saveCharDetail()" rows="4"></textarea>
+          </div>
+          <div class="dbox">
+            <div class="dbox-lbl">أسلوب اللباس</div>
+            <textarea class="dbox-in" id="cdp-style-in" placeholder="كيف تلبس هذه الشخصية عادةً؟" oninput="saveCharDetail()" rows="3"></textarea>
+          </div>
+        </div>
+        <div id="cdp-gallery" class="hidden">
+          <div class="dbox">
+            <div class="dbox-lbl">الصور المرجعية</div>
+            <div class="upload-img-btn" onclick="document.getElementById('char-img-in').click()">📷 ارفعي صورة مرجعية</div>
+            <div class="gal-grid" id="char-gallery"></div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:0 16px 16px">
+        <button class="s-btn lv" style="width:100%;padding:12px;border-radius:20px;font-size:14px" onclick="saveCharAndClose()">💾 حفظ الشخصية</button>
+      </div>
+    </div>
+
+    <!-- ══ PLACE DETAIL OVERLAY ══ -->
+    <div class="overlay" id="place-detail-overlay">
+      <div class="s-head">
+        <div><div class="s-title" id="place-overlay-title">مكان جديد</div></div>
+        <div style="display:flex;gap:8px">
+          <button class="s-btn" style="background:var(--cr-d);color:var(--ink-l);box-shadow:none" onclick="closeOverlay('place-detail-overlay')">✕</button>
+          <button class="s-btn" onclick="savePlaceAndClose()">💾 حفظ</button>
+        </div>
+      </div>
+      <div class="place-det-form">
+        <div class="form-field">
+          <div class="form-lbl">اسم المكان</div>
+          <input class="form-in" id="pl-name" placeholder="اسم المكان...">
+        </div>
+        <div class="form-field">
+          <div class="form-lbl">أيقونة</div>
+          <div class="emoji-row" id="emoji-row">
+            <div class="ej-btn sel" onclick="selEmoji(this,'🏰')">🏰</div>
+            <div class="ej-btn" onclick="selEmoji(this,'🌴')">🌴</div>
+            <div class="ej-btn" onclick="selEmoji(this,'🌙')">🌙</div>
+            <div class="ej-btn" onclick="selEmoji(this,'🏛️')">🏛️</div>
+            <div class="ej-btn" onclick="selEmoji(this,'🌊')">🌊</div>
+            <div class="ej-btn" onclick="selEmoji(this,'🏔️')">🏔️</div>
+            <div class="ej-btn" onclick="selEmoji(this,'🌹')">🌹</div>
+            <div class="ej-btn" onclick="selEmoji(this,'⚔️')">⚔️</div>
+          </div>
+        </div>
+        <div class="form-field">
+          <div class="form-lbl">لون الخلفية</div>
+          <div class="color-row" id="color-row">
+            <div class="col-btn sel" onclick="selColor(this,'linear-gradient(135deg,#d4789a,#a85070)')" style="background:linear-gradient(135deg,#d4789a,#a85070)"></div>
+            <div class="col-btn" onclick="selColor(this,'linear-gradient(135deg,#b8a8d4,#7060a8)')" style="background:linear-gradient(135deg,#b8a8d4,#7060a8)"></div>
+            <div class="col-btn" onclick="selColor(this,'linear-gradient(135deg,#c9a060,#7a5c20)')" style="background:linear-gradient(135deg,#c9a060,#7a5c20)"></div>
+            <div class="col-btn" onclick="selColor(this,'linear-gradient(135deg,#7a8a78,#3a5030)')" style="background:linear-gradient(135deg,#7a8a78,#3a5030)"></div>
+            <div class="col-btn" onclick="selColor(this,'linear-gradient(135deg,#8087a8,#4a5080)')" style="background:linear-gradient(135deg,#8087a8,#4a5080)"></div>
+            <div class="col-btn" onclick="selColor(this,'linear-gradient(135deg,#c97878,#7a3030)')" style="background:linear-gradient(135deg,#c97878,#7a3030)"></div>
+          </div>
+        </div>
+        <div class="form-field">
+          <div class="form-lbl">نوع المكان</div>
+          <input class="form-in" id="pl-type" placeholder="قصر، غابة، مدينة، سوق...">
+        </div>
+        <div class="form-field">
+          <div class="form-lbl">الوصف</div>
+          <textarea class="form-in" id="pl-desc" placeholder="صفي هذا المكان... ماذا يُرى فيه؟ كيف تبدو رائحته؟ ما الذي يحدث فيه؟" rows="5"></textarea>
+        </div>
+        <div class="form-field">
+          <div class="form-lbl">الصور المرجعية</div>
+          <div class="upload-img-btn" onclick="document.getElementById('place-img-in').click()">🗺️ ارفعي خريطة أو صورة</div>
+          <div class="gal-grid" id="place-gallery"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end app-area -->
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <div class="nb active" id="nav-home" onclick="switchTab('home-screen',0)"><div class="ni">📚</div><div class="nl">المكتبة</div></div>
+    <div class="nb" id="nav-chars" onclick="switchTab('chars-screen',1)"><div class="ni">🌸</div><div class="nl">الشخصيات</div></div>
+    <div class="nb" id="nav-places" onclick="switchTab('places-screen',2)"><div class="ni">🗺️</div><div class="nl">الأماكن</div></div>
+    <div class="nb" id="nav-writing" onclick="switchTab('writing-screen',3)"><div class="ni">✍️</div><div class="nl">الكتابة</div></div>
+  </nav>
+
+  <!-- MODAL -->
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal">
+      <div class="modal-title" id="modal-title">رواية جديدة</div>
+      <input class="modal-in" id="modal-in1" placeholder="">
+      <input class="modal-in" id="modal-in2" placeholder="" style="display:none">
+      <div class="modal-btns">
+        <button class="modal-ok" id="modal-ok" onclick="modalOk()">إنشاء ✦</button>
+        <button class="modal-cancel" onclick="closeModal()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end phone -->
+
+<script>
+// ═══════════════════════════════════════════════
+//  STATE — loaded from localStorage
+// ═══════════════════════════════════════════════
+const STORE_KEY = 'warsha_data_v1';
+let db = load();
+
+function load(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || fresh(); }
+  catch(e){ return fresh(); }
+}
+function fresh(){
+  return { novels:[], chars:[], places:[], settings:{ font:'Amiri', template:'classic' } };
+}
+function save(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(db)); }
+  catch(e){ console.warn('save failed',e); }
+}
+function genId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+// ═══════════════════════════════════════════════
+//  CLOCK
+// ═══════════════════════════════════════════════
+function updateClock(){
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  document.getElementById('clock').textContent = h+':'+m;
+}
+updateClock(); setInterval(updateClock,30000);
+
+// ═══════════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════════
+let _tt;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(_tt); _tt=setTimeout(()=>el.classList.remove('show'),2500);
+}
+
+// ═══════════════════════════════════════════════
+//  TAB NAVIGATION
+// ═══════════════════════════════════════════════
+const SCREENS = ['home-screen','chars-screen','places-screen','writing-screen'];
+const NAVS = ['nav-home','nav-chars','nav-places','nav-writing'];
+function switchTab(screenId, idx){
+  SCREENS.forEach(s=>{ const el=document.getElementById(s); if(el){ el.classList.remove('active'); }});
+  NAVS.forEach(n=>document.getElementById(n).classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+  document.getElementById(NAVS[idx]).classList.add('active');
+  if(screenId==='home-screen') renderHome();
+  if(screenId==='chars-screen') renderCharsScreen();
+  if(screenId==='places-screen') renderPlacesScreen();
+  if(screenId==='writing-screen') renderWritingScreen();
+}
+
+// ═══════════════════════════════════════════════
+//  OVERLAYS
+// ═══════════════════════════════════════════════
+function openOverlay(id){
+  document.getElementById(id).classList.add('open');
+}
+function closeOverlay(id){
+  document.getElementById(id).classList.remove('open');
+  renderHome(); renderCharsScreen(); renderPlacesScreen();
+}
+
+// ═══════════════════════════════════════════════
+//  MODAL
+// ═══════════════════════════════════════════════
+let _modalMode = '';
+function openModal(title, p1, p2, mode){
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-in1').placeholder = p1;
+  document.getElementById('modal-in1').value = '';
+  const in2 = document.getElementById('modal-in2');
+  if(p2){ in2.placeholder=p2; in2.value=''; in2.style.display='block'; }
+  else{ in2.style.display='none'; }
+  _modalMode = mode;
+  document.getElementById('modal-bg').classList.add('open');
+  setTimeout(()=>document.getElementById('modal-in1').focus(),100);
+}
+function closeModal(){ document.getElementById('modal-bg').classList.remove('open'); }
+function modalOk(){
+  const v1 = document.getElementById('modal-in1').value.trim();
+  const v2 = document.getElementById('modal-in2').value.trim();
+  if(!v1){ toast('✦ أدخلي قيمة أولاً'); return; }
+  if(_modalMode==='new-novel') createNovel(v1, v2);
+  if(_modalMode==='new-char') createChar(v1, v2);
+  if(_modalMode==='new-chapter') createChapter(v1);
+  closeModal();
+}
+document.getElementById('modal-in1').addEventListener('keydown',e=>{ if(e.key==='Enter') modalOk(); });
+
+// ═══════════════════════════════════════════════
+//  NOVELS
+// ═══════════════════════════════════════════════
+let currentNovelId = null;
+
+function openNewNovelModal(){
+  openModal('رواية جديدة 📚','عنوان الرواية...','النوع الأدبي (اختياري)','new-novel');
+}
+function createNovel(title, genre){
+  const nov = { id:genId(), title, genre:genre||'', chapters:[], created:Date.now() };
+  db.novels.push(nov);
+  save();
+  renderHome();
+  toast('✦ تم إنشاء: '+title);
+}
+function openNovel(id){
+  currentNovelId = id;
+  const nov = db.novels.find(n=>n.id===id);
+  if(!nov) return;
+  document.getElementById('nov-title-in').value = nov.title;
+  document.getElementById('nov-genre-in').value = nov.genre||'';
+  renderChapterList();
+  renderNovCharList();
+  renderNovPlaceList();
+  novTab(document.querySelector('.ntab'), 'nov-chapters');
+  openOverlay('novel-overlay');
+}
+function saveCurrentNovel(){
+  const nov = db.novels.find(n=>n.id===currentNovelId);
+  if(!nov) return;
+  nov.title = document.getElementById('nov-title-in').value;
+  nov.genre = document.getElementById('nov-genre-in').value;
+  save();
+}
+function deleteNovel(id, e){
+  e.stopPropagation();
+  if(!confirm('حذف الرواية نهائياً؟')) return;
+  db.novels = db.novels.filter(n=>n.id!==id);
+  save(); renderHome(); toast('✦ تم الحذف');
+}
+function renderHome(){
+  // Stats
+  const totalWords = db.novels.reduce((s,n)=>{
+    return s + (n.chapters||[]).reduce((cs,c)=>cs+(c.wordCount||0),0);
+  },0);
+  document.getElementById('stat-novels').textContent = toArabicNum(db.novels.length);
+  document.getElementById('stat-chars').textContent = toArabicNum(db.chars.length);
+  document.getElementById('stat-places').textContent = toArabicNum(db.places.length);
+  document.getElementById('stat-words').textContent = toArabicNum(totalWords);
+
+  // Books shelf
+  const shelf = document.getElementById('books-shelf');
+  shelf.innerHTML = '';
+  const COLORS = ['linear-gradient(160deg,#d4789a,#a85070)','linear-gradient(160deg,#b8a8d4,#7060a8)','linear-gradient(160deg,#c9a060,#7a5c20)','linear-gradient(160deg,#7a8a78,#3a5030)','linear-gradient(160deg,#8087a8,#4a5080)'];
+  db.novels.forEach((nov,i)=>{
+    const totalCh = (nov.chapters||[]).length;
+    const doneCh = (nov.chapters||[]).filter(c=>(c.content||'').length>50).length;
+    const pct = totalCh ? Math.round(doneCh/totalCh*100) : 0;
+    const wc = (nov.chapters||[]).reduce((s,c)=>s+(c.wordCount||0),0);
+    const bg = COLORS[i % COLORS.length];
+    const el = document.createElement('div');
+    el.className = 'bk';
+    el.onclick = ()=>openNovel(nov.id);
+    el.innerHTML = `
+      <div class="bk-cover" style="background:${bg}">
+        <div class="bk-del" onclick="deleteNovel('${nov.id}',event)">🗑</div>
+        <div class="bk-overlay">
+          <div class="bk-t">${esc(nov.title)}</div>
+          <div class="bk-g">${esc(nov.genre||'رواية')} · ${toArabicNum(wc)} كلمة</div>
+          <div class="bk-pb"><div class="bk-pf" style="width:${pct}%"></div></div>
+        </div>
+      </div>
+      <div class="bk-inf">${toArabicNum(pct)}٪ مكتملة</div>`;
+    shelf.appendChild(el);
+  });
+  const addBtn = document.createElement('div');
+  addBtn.className = 'new-bk';
+  addBtn.onclick = openNewNovelModal;
+  addBtn.innerHTML = '<div class="pl">＋</div><span>رواية جديدة</span>';
+  shelf.appendChild(addBtn);
+}
+
+// ═══════════════════════════════════════════════
+//  CHAPTERS
+// ═══════════════════════════════════════════════
+let currentChapterId = null;
+let _saveTimer = null;
+let scOn = true;
+
+function addChapter(){
+  openModal('فصل جديد 📖','عنوان الفصل...','','new-chapter');
+}
+function createChapter(title){
+  const nov = db.novels.find(n=>n.id===currentNovelId);
+  if(!nov) return;
+  if(!nov.chapters) nov.chapters=[];
+  const ch = { id:genId(), title, content:'', wordCount:0, created:Date.now() };
+  nov.chapters.push(ch);
+  save(); renderChapterList();
+  toast('✦ تم إنشاء الفصل: '+title);
+}
+function openChapter(novelId, chapterId){
+  currentNovelId = novelId;
+  currentChapterId = chapterId;
+  const nov = db.novels.find(n=>n.id===novelId);
+  const ch = (nov?.chapters||[]).find(c=>c.id===chapterId);
+  if(!ch) return;
+  document.getElementById('ed-ch-title').value = ch.title||'';
+  const body = document.getElementById('ed-body');
+  body.innerHTML = ch.content||'';
+  body.style.fontFamily = `'${db.settings.font||'Amiri'}', serif`;
+  updateWC();
+  openOverlay('editor-overlay');
+  body.focus();
+}
+function closeEditor(){
+  saveChapter();
+  closeOverlay('editor-overlay');
+  renderChapterList();
+}
+function saveChapter(){
+  const nov = db.novels.find(n=>n.id===currentNovelId);
+  const ch = (nov?.chapters||[]).find(c=>c.id===currentChapterId);
+  if(!ch) return;
+  ch.title = document.getElementById('ed-ch-title').value;
+  ch.content = document.getElementById('ed-body').innerHTML;
+  ch.wordCount = countWords(document.getElementById('ed-body').innerText);
+  save();
+  showSaved();
+}
+function onEditorInput(){
+  updateWC();
+  clearTimeout(_saveTimer);
+  document.getElementById('ef-saved').textContent = '...';
+  _saveTimer = setTimeout(saveChapter, 1200);
+}
+function updateWC(){
+  const txt = document.getElementById('ed-body').innerText||'';
+  const wc = countWords(txt);
+  document.getElementById('ef-wc').textContent = 'الكلمات: '+toArabicNum(wc);
+}
+function showSaved(){
+  document.getElementById('ef-saved').textContent = '✓ محفوظ';
+  document.getElementById('save-badge').textContent = '💾 محفوظ';
+}
+function deleteChapter(novelId, chapterId, e){
+  e.stopPropagation();
+  if(!confirm('حذف الفصل؟')) return;
+  const nov = db.novels.find(n=>n.id===novelId);
+  if(!nov) return;
+  nov.chapters = nov.chapters.filter(c=>c.id!==chapterId);
+  save(); renderChapterList(); toast('✦ تم حذف الفصل');
+}
+function renderChapterList(){
+  const nov = db.novels.find(n=>n.id===currentNovelId);
+  const list = document.getElementById('ch-list');
+  list.innerHTML = '';
+  if(!nov||!nov.chapters||!nov.chapters.length){
+    list.innerHTML = '<div class="empty-state"><div class="ei">📖</div><div class="et">لا توجد فصول بعد</div><div class="es">اضغطي على "فصل جديد"</div></div>';
+    return;
+  }
+  nov.chapters.forEach((ch,i)=>{
+    const el = document.createElement('div');
+    el.className = 'ch-item';
+    el.onclick = ()=>openChapter(currentNovelId, ch.id);
+    el.innerHTML = `
+      <div class="ch-num">${toArabicNum(i+1)}</div>
+      <div class="ch-info">
+        <div class="ch-name">${esc(ch.title||'بدون عنوان')}</div>
+        <div class="ch-wc">${toArabicNum(ch.wordCount||0)} كلمة</div>
+      </div>
+      <div class="ch-del" onclick="deleteChapter('${currentNovelId}','${ch.id}',event)">🗑</div>`;
+    list.appendChild(el);
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  CHARACTERS
+// ═══════════════════════════════════════════════
+let currentCharId = null;
+const AVATAR_COLORS = ['linear-gradient(135deg,#d4789a,#a85070)','linear-gradient(135deg,#b8a8d4,#7060a8)','linear-gradient(135deg,#c9a060,#8a6020)','linear-gradient(135deg,#7a8a78,#3a5030)','linear-gradient(135deg,#c97878,#7a3030)','linear-gradient(135deg,#8087a8,#4a5080)'];
+
+function openNewCharModal(){
+  openModal('شخصية جديدة 🌸','اسم الشخصية...','الدور (بطلة، شرير، صديقة...)','new-char');
+}
+function createChar(name, role){
+  const ch = { id:genId(), name, role:role||'', traits:[], motivation:'', backstory:'', arc:'', physical:'', style:'', photos:[], color:AVATAR_COLORS[db.chars.length%AVATAR_COLORS.length] };
+  db.chars.push(ch);
+  save(); renderCharsScreen(); renderNovCharList();
+  toast('✦ تم إنشاء الشخصية: '+name);
+  openCharDetail(ch.id);
+}
+function openCharDetail(id){
+  currentCharId = id;
+  const ch = db.chars.find(c=>c.id===id);
+  if(!ch) return;
+  document.getElementById('cdp-av').textContent = ch.name?ch.name[0]:'؟';
+  document.getElementById('cdp-av').style.background = ch.color||AVATAR_COLORS[0];
+  if(ch.photos&&ch.photos.length){
+    document.getElementById('cdp-av').innerHTML = `<img src="${ch.photos[0]}" alt="">`;
+  }
+  document.getElementById('cdp-cn').textContent = ch.name||'';
+  document.getElementById('cdp-cr').textContent = ch.role||'';
+  document.getElementById('cdp-bg').style.background = (ch.color||AVATAR_COLORS[0]).replace('135deg','160deg');
+  document.getElementById('cdp-name-in').value = ch.name||'';
+  document.getElementById('cdp-role-in').value = ch.role||'';
+  document.getElementById('cdp-motivation').value = ch.motivation||'';
+  document.getElementById('cdp-backstory-in').value = ch.backstory||'';
+  document.getElementById('cdp-arc').value = ch.arc||'';
+  document.getElementById('cdp-physical-in').value = ch.physical||'';
+  document.getElementById('cdp-style-in').value = ch.style||'';
+  renderTraits(ch.traits||[]);
+  renderCharGallery(ch.photos||[]);
+  cdpTab(document.querySelector('.cdp-tab'),'cdp-personality');
+  openOverlay('char-detail-overlay');
+}
+function saveCharDetail(){
+  const ch = db.chars.find(c=>c.id===currentCharId);
+  if(!ch) return;
+  ch.name = document.getElementById('cdp-name-in').value;
+  ch.role = document.getElementById('cdp-role-in').value;
+  ch.motivation = document.getElementById('cdp-motivation').value;
+  ch.backstory = document.getElementById('cdp-backstory-in').value;
+  ch.arc = document.getElementById('cdp-arc').value;
+  ch.physical = document.getElementById('cdp-physical-in').value;
+  ch.style = document.getElementById('cdp-style-in').value;
+  document.getElementById('cdp-cn').textContent = ch.name||'';
+  document.getElementById('cdp-cr').textContent = ch.role||'';
+  save();
+}
+function saveCharAndClose(){
+  saveCharDetail();
+  closeOverlay('char-detail-overlay');
+  renderCharsScreen();
+  renderNovCharList();
+  toast('✦ تم حفظ الشخصية 🌸');
+}
+function deleteChar(id,e){
+  e.stopPropagation();
+  if(!confirm('حذف الشخصية؟')) return;
+  db.chars = db.chars.filter(c=>c.id!==id);
+  save(); renderCharsScreen(); toast('✦ تم الحذف');
+}
+function renderCharsScreen(){
+  const grid = document.getElementById('chars-grid');
+  grid.innerHTML = '';
+  if(!db.chars.length){
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="ei">🌸</div><div class="et">لا توجد شخصيات بعد</div><div class="es">أضيفي أولى شخصيات روايتكِ</div><button class="e-btn" onclick="openNewCharModal()">+ أضيفي شخصية</button></div>';
+  } else {
+    db.chars.forEach(ch=>{
+      const el = document.createElement('div');
+      el.className = 'char-card';
+      const letter = ch.name?ch.name[0]:'؟';
+      const avContent = (ch.photos&&ch.photos.length) ? `<img src="${ch.photos[0]}" alt="">` : letter;
+      el.innerHTML = `
+        <div class="cc-top" style="background:${(ch.color||AVATAR_COLORS[0]).replace('135deg','160deg').replace('rgba','rgba')}20">
+          <div class="cc-av" style="background:${ch.color||AVATAR_COLORS[0]}">${avContent}</div>
+          <div class="cc-del" onclick="deleteChar('${ch.id}',event)">🗑</div>
+        </div>
+        <div class="cc-body">
+          <div class="cc-nm">${esc(ch.name||'بدون اسم')}</div>
+          <div class="cc-role" style="background:var(--pk-p);color:var(--pk-d)">${esc(ch.role||'شخصية')}</div>
+        </div>`;
+      el.onclick = ()=>openCharDetail(ch.id);
+      grid.appendChild(el);
+    });
+    const add = document.createElement('div');
+    add.className = 'add-card';
+    add.onclick = openNewCharModal;
+    add.innerHTML = '<div class="pl">＋</div><span>شخصية جديدة</span>';
+    grid.appendChild(add);
+  }
+  const sub = document.getElementById('chars-sub');
+  sub.textContent = db.chars.length ? toArabicNum(db.chars.length)+' شخصية' : 'لا توجد شخصيات بعد';
+}
+function renderNovCharList(){
+  const list = document.getElementById('nov-char-list');
+  list.innerHTML = '';
+  if(!db.chars.length){
+    list.innerHTML='<div class="empty-state"><div class="ei">🌸</div><div class="et">لا شخصيات بعد</div></div>';
+    return;
+  }
+  db.chars.forEach(ch=>{
+    const el = document.createElement('div');
+    el.className = 'char-row';
+    el.onclick = ()=>openCharDetail(ch.id);
+    const letter = ch.name?ch.name[0]:'؟';
+    const avContent = (ch.photos&&ch.photos.length)?`<img src="${ch.photos[0]}" alt="">`:letter;
+    el.innerHTML = `
+      <div class="char-av-sm" style="background:${ch.color||AVATAR_COLORS[0]}">${avContent}</div>
+      <div class="char-row-info">
+        <div class="char-row-name">${esc(ch.name||'بدون اسم')}</div>
+        <div class="char-row-role">${esc(ch.role||'شخصية')}</div>
+      </div>`;
+    list.appendChild(el);
+  });
+}
+
+// TRAITS
+function renderTraits(traits){
+  const cont = document.getElementById('traits-container');
+  const inp = document.getElementById('trait-in');
+  cont.innerHTML = '';
+  traits.forEach((t,i)=>{
+    const span = document.createElement('span');
+    span.className = 'tag-chip';
+    span.innerHTML = `${esc(t)} <span class="rem" onclick="removeTrait(${i})">×</span>`;
+    cont.appendChild(span);
+  });
+  cont.appendChild(inp);
+}
+function addTrait(e){
+  if(e.key!=='Enter'&&e.key!==','&&e.key!==' ') return;
+  const val = e.target.value.trim().replace(',','');
+  if(!val) return;
+  const ch = db.chars.find(c=>c.id===currentCharId);
+  if(!ch) return;
+  if(!ch.traits) ch.traits=[];
+  ch.traits.push(val);
+  e.target.value='';
+  save(); renderTraits(ch.traits);
+}
+function removeTrait(i){
+  const ch = db.chars.find(c=>c.id===currentCharId);
+  if(!ch||!ch.traits) return;
+  ch.traits.splice(i,1);
+  save(); renderTraits(ch.traits);
+}
+
+// CHAR PHOTOS
+function onCharImg(event){
+  const file = event.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    const ch = db.chars.find(c=>c.id===currentCharId);
+    if(!ch) return;
+    if(!ch.photos) ch.photos=[];
+    ch.photos.push(e.target.result);
+    save();
+    renderCharGallery(ch.photos);
+    document.getElementById('cdp-av').innerHTML = `<img src="${e.target.result}" alt="">`;
+    toast('✦ تم رفع الصورة ✓');
+  };
+  reader.readAsDataURL(file);
+  event.target.value='';
+}
+function renderCharGallery(photos){
+  const grid = document.getElementById('char-gallery');
+  grid.innerHTML = '';
+  photos.forEach((src,i)=>{
+    const cell = document.createElement('div');
+    cell.className = 'gal-cell';
+    cell.innerHTML = `<img src="${src}" alt=""><div class="del-img" onclick="deleteCharPhoto(${i})">✕</div>`;
+    grid.appendChild(cell);
+  });
+  const add = document.createElement('div');
+  add.className = 'gal-cell gal-add';
+  add.onclick = ()=>document.getElementById('char-img-in').click();
+  add.textContent = '＋';
+  grid.appendChild(add);
+}
+function deleteCharPhoto(i){
+  const ch = db.chars.find(c=>c.id===currentCharId);
+  if(!ch) return;
+  ch.photos.splice(i,1);
+  save(); renderCharGallery(ch.photos);
+}
+
+// ═══════════════════════════════════════════════
+//  PLACES
+// ═══════════════════════════════════════════════
+let currentPlaceId = null;
+let selectedEmoji = '🏰';
+let selectedColor = 'linear-gradient(135deg,#d4789a,#a85070)';
+
+function openNewPlace(){
+  currentPlaceId = null;
+  document.getElementById('pl-name').value = '';
+  document.getElementById('pl-type').value = '';
+  document.getElementById('pl-desc').value = '';
+  selectedEmoji = '🏰';
+  selectedColor = 'linear-gradient(135deg,#d4789a,#a85070)';
+  document.querySelectorAll('.ej-btn').forEach((b,i)=>b.classList.toggle('sel',i===0));
+  document.querySelectorAll('.col-btn').forEach((b,i)=>b.classList.toggle('sel',i===0));
+  document.getElementById('place-gallery').innerHTML = '';
+  document.getElementById('place-overlay-title').textContent = 'مكان جديد';
+  openOverlay('place-detail-overlay');
+}
+function openPlaceDetail(id){
+  currentPlaceId = id;
+  const pl = db.places.find(p=>p.id===id);
+  if(!pl) return;
+  document.getElementById('place-overlay-title').textContent = esc(pl.name);
+  document.getElementById('pl-name').value = pl.name||'';
+  document.getElementById('pl-type').value = pl.type||'';
+  document.getElementById('pl-desc').value = pl.desc||'';
+  selectedEmoji = pl.emoji||'🏰';
+  selectedColor = pl.color||'linear-gradient(135deg,#d4789a,#a85070)';
+  document.querySelectorAll('.ej-btn').forEach(b=>b.classList.toggle('sel',b.textContent===selectedEmoji));
+  renderPlaceGallery(pl.photos||[]);
+  openOverlay('place-detail-overlay');
+}
+function savePlaceAndClose(){
+  const name = document.getElementById('pl-name').value.trim();
+  if(!name){ toast('✦ أدخلي اسم المكان'); return; }
+  if(currentPlaceId){
+    const pl = db.places.find(p=>p.id===currentPlaceId);
+    if(pl){ pl.name=name; pl.type=document.getElementById('pl-type').value; pl.desc=document.getElementById('pl-desc').value; pl.emoji=selectedEmoji; pl.color=selectedColor; }
+  } else {
+    const pl = { id:genId(), name, type:document.getElementById('pl-type').value, desc:document.getElementById('pl-desc').value, emoji:selectedEmoji, color:selectedColor, photos:[] };
+    db.places.push(pl);
+  }
+  save();
+  closeOverlay('place-detail-overlay');
+  renderPlacesScreen();
+  renderNovPlaceList();
+  toast('✦ تم حفظ المكان 🗺️');
+}
+function deletePlace(id,e){
+  e.stopPropagation();
+  if(!confirm('حذف المكان؟')) return;
+  db.places = db.places.filter(p=>p.id!==id);
+  save(); renderPlacesScreen(); toast('✦ تم الحذف');
+}
+function selEmoji(el,em){
+  selectedEmoji = em;
+  document.querySelectorAll('.ej-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function selColor(el,col){
+  selectedColor = col;
+  document.querySelectorAll('.col-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function onPlaceImgUpload(event){
+  const file = event.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    if(currentPlaceId){
+      const pl = db.places.find(p=>p.id===currentPlaceId);
+      if(pl){ if(!pl.photos)pl.photos=[]; pl.photos.push(e.target.result); save(); renderPlaceGallery(pl.photos); }
+    }
+    toast('✦ تم رفع الصورة ✓');
+  };
+  reader.readAsDataURL(file);
+  event.target.value='';
+}
+function renderPlaceGallery(photos){
+  const grid = document.getElementById('place-gallery');
+  grid.innerHTML = '';
+  photos.forEach((src,i)=>{
+    const cell = document.createElement('div');
+    cell.className = 'gal-cell';
+    cell.innerHTML = `<img src="${src}" alt=""><div class="del-img" onclick="deletePlacePhoto(${i})">✕</div>`;
+    grid.appendChild(cell);
+  });
+  const add = document.createElement('div');
+  add.className = 'gal-cell gal-add';
+  add.onclick = ()=>document.getElementById('place-img-in').click();
+  add.textContent = '＋';
+  grid.appendChild(add);
+}
+function deletePlacePhoto(i){
+  if(!currentPlaceId) return;
+  const pl = db.places.find(p=>p.id===currentPlaceId);
+  if(!pl) return;
+  pl.photos.splice(i,1);
+  save(); renderPlaceGallery(pl.photos);
+}
+function renderPlacesScreen(){
+  const grid = document.getElementById('places-grid');
+  grid.innerHTML = '';
+  if(!db.places.length){
+    grid.innerHTML = '<div class="empty-state"><div class="ei">🗺️</div><div class="et">لا توجد أماكن بعد</div><div class="es">أضيفي أماكن روايتكِ</div><button class="e-btn" onclick="openNewPlace()">+ أضيفي مكاناً</button></div>';
+  } else {
+    const addBtn = document.createElement('div');
+    addBtn.className = 'add-place-btn';
+    addBtn.onclick = openNewPlace;
+    addBtn.innerHTML = '＋ إضافة مكان جديد';
+    grid.appendChild(addBtn);
+    db.places.forEach(pl=>{
+      const el = document.createElement('div');
+      el.className = 'place-card';
+      el.onclick = ()=>openPlaceDetail(pl.id);
+      el.innerHTML = `
+        <div class="pc-banner" style="background:${pl.color||'linear-gradient(135deg,#d4789a,#a85070)'}">
+          ${pl.emoji||'🏰'}
+          <div class="pc-type" style="background:rgba(0,0,0,.35);color:#fff">${esc(pl.type||'مكان')}</div>
+          <div class="pc-del" onclick="deletePlace('${pl.id}',event)">🗑</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-name">${esc(pl.name)}</div>
+          <div class="pc-desc">${esc(pl.desc||'لا يوجد وصف بعد...')}</div>
+        </div>`;
+      grid.appendChild(el);
+    });
+  }
+  const sub = document.getElementById('places-sub');
+  sub.textContent = db.places.length ? toArabicNum(db.places.length)+' مكان' : 'لا توجد أماكن بعد';
+}
+function renderNovPlaceList(){
+  const list = document.getElementById('nov-place-list');
+  list.innerHTML = '';
+  if(!db.places.length){
+    list.innerHTML='<div class="empty-state"><div class="ei">🗺️</div><div class="et">لا أماكن بعد</div></div>';
+    return;
+  }
+  db.places.forEach(pl=>{
+    const el = document.createElement('div');
+    el.className = 'place-row';
+    el.onclick = ()=>openPlaceDetail(pl.id);
+    el.innerHTML = `
+      <div class="place-banner-sm" style="background:${pl.color||'linear-gradient(135deg,#d4789a,#a85070)'}">
+        ${pl.emoji||'🏰'}
+        <div style="color:#fff;font-family:'Amiri',serif;font-size:16px;font-weight:700;flex:1">${esc(pl.name)}</div>
+      </div>
+      <div class="place-row-info">
+        <div class="place-row-name">${esc(pl.name)}</div>
+        <div class="place-row-desc">${esc(pl.desc||'لا يوجد وصف...')}</div>
+      </div>`;
+    list.appendChild(el);
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  WRITING SCREEN
+// ═══════════════════════════════════════════════
+function renderWritingScreen(){
+  const empty = document.getElementById('writing-empty');
+  const list = document.getElementById('writing-list');
+  if(!db.novels.length){
+    empty.style.display='flex'; list.classList.add('hidden'); return;
+  }
+  empty.style.display='none'; list.classList.remove('hidden');
+  list.innerHTML = '';
+  const COLORS = ['linear-gradient(160deg,#d4789a,#a85070)','linear-gradient(160deg,#b8a8d4,#7060a8)','linear-gradient(160deg,#c9a060,#7a5c20)','linear-gradient(160deg,#7a8a78,#3a5030)'];
+  db.novels.forEach((nov,ni)=>{
+    const wrap = document.createElement('div');
+    wrap.style.marginBottom = '16px';
+    const titleEl = document.createElement('div');
+    titleEl.style.cssText = 'font-family:"Amiri",serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;padding-right:4px;';
+    titleEl.textContent = nov.title;
+    wrap.appendChild(titleEl);
+    if(!nov.chapters||!nov.chapters.length){
+      const em = document.createElement('div');
+      em.style.cssText = 'font-size:13px;color:var(--ink-l);font-style:italic;padding:10px 0;';
+      em.textContent = 'لا توجد فصول — افتحي الرواية لإضافة فصول';
+      wrap.appendChild(em);
+    } else {
+      nov.chapters.forEach((ch,ci)=>{
+        const btn = document.createElement('div');
+        btn.className = 'ch-item';
+        btn.onclick = ()=>openChapter(nov.id,ch.id);
+        btn.innerHTML = `
+          <div class="ch-num">${toArabicNum(ci+1)}</div>
+          <div class="ch-info">
+            <div class="ch-name">${esc(ch.title||'بدون عنوان')}</div>
+            <div class="ch-wc">${toArabicNum(ch.wordCount||0)} كلمة</div>
+          </div>
+          <div style="font-size:18px;color:var(--pk)">✏️</div>`;
+        wrap.appendChild(btn);
+      });
+    }
+    list.appendChild(wrap);
+    if(ni < db.novels.length-1){
+      const div = document.createElement('div');
+      div.className = 'gd';
+      list.appendChild(div);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  EDITOR TOOLS
+// ═══════════════════════════════════════════════
+function setDir(dir){
+  const body = document.getElementById('ed-body');
+  body.setAttribute('data-dir', dir);
+  body.dir = dir;
+  body.style.textAlign = dir==='rtl'?'right':'left';
+  document.getElementById('dir-ar').classList.toggle('active',dir==='rtl');
+  document.getElementById('dir-en').classList.toggle('active',dir==='ltr');
+}
+function toggleSC(){
+  scOn=!scOn;
+  document.getElementById('sc-toggle').classList.toggle('on',scOn);
+  document.getElementById('ed-body').spellcheck = scOn;
+  toast(scOn?'✦ التصحيح مفعّل':'✦ التصحيح موقوف');
+}
+function fmt(cmd,val){
+  document.execCommand(cmd,false,val||null);
+  document.getElementById('ed-body').focus();
+}
+
+// ═══════════════════════════════════════════════
+//  EXPORT
+// ═══════════════════════════════════════════════
+let expOpen = false;
+function toggleExpMenu(){
+  expOpen=!expOpen;
+  document.getElementById('exp-menu').classList.toggle('open',expOpen);
+}
+function doExport(fmt){
+  expOpen=false;
+  document.getElementById('exp-menu').classList.remove('open');
+  const nov = db.novels.find(n=>n.id===currentNovelId);
+  if(!nov){ toast('✦ لا توجد رواية محددة'); return; }
+  if(fmt==='txt'){
+    let txt = nov.title+'\n'+(nov.genre?nov.genre+'\n':'')+'\n';
+    (nov.chapters||[]).forEach((ch,i)=>{ txt+=`\nالفصل ${i+1}: ${ch.title}\n\n`; txt+=(ch.content||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim()+'\n'; });
+    downloadFile(nov.title+'.txt', txt, 'text/plain;charset=utf-8');
+  } else if(fmt==='html'){
+    let html = `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>${esc(nov.title)}</title><link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet"><style>body{font-family:'Amiri',serif;max-width:700px;margin:60px auto;padding:0 30px;color:#2d1a28;line-height:2}h1{font-size:36px;text-align:center;color:#a85070}h2{font-size:22px;color:#d4789a;margin-top:40px;border-bottom:1px solid #f0b8cc;padding-bottom:8px}p{margin-bottom:1.2em}</style></head><body><h1>${esc(nov.title)}</h1><p style="text-align:center;color:#a07090">${esc(nov.genre||'')}</p>`;
+    (nov.chapters||[]).forEach((ch,i)=>{ html+=`<h2>الفصل ${i+1}: ${esc(ch.title)}</h2>${ch.content||'<p></p>'}`; });
+    html+='</body></html>';
+    downloadFile(nov.title+'.html', html, 'text/html;charset=utf-8');
+  } else if(fmt==='print'){
+    doExport('html');
+    toast('✦ تم إنشاء الملف — افتحيه وأطبعيه');
+  }
+  toast('✦ جاري التحميل...');
+}
+function downloadFile(name,content,type){
+  const blob = new Blob([content],{type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=name; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════════════════════════════
+//  NOVEL TABS
+// ═══════════════════════════════════════════════
+function novTab(el, tab){
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['nov-chapters','nov-chars','nov-places','nov-export'].forEach(id=>{
+    const el2=document.getElementById(id);
+    if(el2) el2.classList.toggle('hidden', id!==tab);
+  });
+}
+function cdpTab(el, tab){
+  document.querySelectorAll('.cdp-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['cdp-personality','cdp-backstory','cdp-physical','cdp-gallery'].forEach(id=>{
+    const el2=document.getElementById(id);
+    if(el2) el2.classList.toggle('hidden', id!==tab);
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  TEMPLATES + FONTS
+// ═══════════════════════════════════════════════
+function selTmpl(el,name){
+  document.querySelectorAll('.tmpl').forEach(t=>t.classList.remove('sel'));
+  el.classList.add('sel');
+  db.settings.template = name; save();
+  toast('✦ قالب: '+el.querySelector('.tmpl-n').textContent);
+}
+function selFont(el,fam,name,type){
+  document.querySelectorAll('.fi').forEach(f=>f.classList.remove('sel'));
+  el.classList.add('sel');
+  db.settings.font = fam; save();
+  document.getElementById('ed-body').style.fontFamily = `'${fam}',serif`;
+  toast('✦ خط: '+name);
+}
+
+// ═══════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function countWords(txt){ return txt.trim()?txt.trim().split(/\s+/).length:0; }
+function toArabicNum(n){
+  return String(n).replace(/[0-9]/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+}
+
+// close export menu when clicking outside
+document.addEventListener('click',e=>{
+  if(expOpen&&!e.target.closest('.dl-btn')&&!e.target.closest('.exp-menu')){
+    expOpen=false; document.getElementById('exp-menu').classList.remove('open');
+  }
+});
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+(function init(){
+  renderHome();
+  renderCharsScreen();
+  renderPlacesScreen();
+  // apply saved font
+  if(db.settings.font){
+    const fitem = document.querySelector(`.fi[onclick*="${db.settings.font}"]`);
+    if(fitem){ document.querySelectorAll('.fi').forEach(f=>f.classList.remove('sel')); fitem.classList.add('sel'); }
+  }
+})();
+</script>
+</body>
+</html>
